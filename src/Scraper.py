@@ -56,20 +56,10 @@ async def scrape_all_channels(channels):
     final_df = pd.concat(all_dfs, ignore_index=True)
     return final_df
 
-def clean_amharic_text(text):
-    text = re.sub(r'https?://\S+|www\.\S+', '', text)
-    text = re.sub(r'[\U00010000-\U0010ffff]', '', text)  # Remove emojis
-    text = re.sub(r'@\w+', '', text)
-    text = re.sub(r'(09|\+2519)\d{8}', '', text)
-    text = re.sub(r'\s+', ' ', text).strip()  # Normalize spaces
-    return text
-
 # Run the scraper
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     scraped_data = loop.run_until_complete(scrape_all_channels(channels))
-    # Apply it before saving
-    scraped_data['cleaned_text'] = scraped_data['text'].apply(clean_amharic_text)
     # Save to CSV
-    scraped_data.to_csv('Data/telegram_scraped_data.csv', index=False)
+    scraped_data.to_csv('Data/telegram_scraped_data.txt', index=False)
     print("✅ Scraping completed and saved to telegram_scraped_data.csv")
