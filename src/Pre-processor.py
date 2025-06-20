@@ -7,7 +7,6 @@ import re
 # Load cleaned data
 df = pd.read_csv('D:/PYTHON PROJECTS/KIAM PROJECTS/Amharic-E-commerce-Data-Extractor/Data/telegram_scraped_data.csv')
 
-
 def clean_amharic_text(text):
     text = re.sub(r'https?://\S+|www\.\S+', '', text)
     text = re.sub(r'[\U00010000-\U0010ffff]', '', text)  # Remove emojis
